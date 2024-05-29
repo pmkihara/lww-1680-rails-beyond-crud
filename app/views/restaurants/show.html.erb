@@ -3,8 +3,20 @@
 <%= render @restaurant %>
 
 <div>
+  <%= link_to 'Meet the chef', chef_restaurant_path(@restaurant)  %>
   <%= link_to "Edit this restaurant", edit_restaurant_path(@restaurant) %> |
   <%= link_to "Back to restaurants", restaurants_path %>
 
   <%= button_to "Destroy this restaurant", @restaurant, method: :delete %>
 </div>
+
+<h2>Reviews</h2>
+<%= link_to 'Add a review', new_restaurant_review_path(@restaurant) %>
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item">
+      <%= review.content %>
+      <%= link_to 'Delete', review_path(review), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>
